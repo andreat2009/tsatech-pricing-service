@@ -1,4 +1,4 @@
-CREATE TABLE discount_coupon (
+CREATE TABLE IF NOT EXISTS discount_coupon (
     id BIGSERIAL PRIMARY KEY,
     code VARCHAR(64) NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
@@ -15,5 +15,5 @@ CREATE TABLE discount_coupon (
     updated_at TIMESTAMPTZ NOT NULL
 );
 
-CREATE INDEX idx_coupon_code ON discount_coupon(code);
-CREATE INDEX idx_coupon_active ON discount_coupon(active);
+CREATE INDEX IF NOT EXISTS idx_coupon_code ON discount_coupon(code);
+CREATE INDEX IF NOT EXISTS idx_coupon_active ON discount_coupon(active);

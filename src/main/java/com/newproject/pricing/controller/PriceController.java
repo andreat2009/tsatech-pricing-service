@@ -27,6 +27,11 @@ public class PriceController {
         return priceService.get(productId);
     }
 
+    @GetMapping("/{productId}/variants/{variantKey}")
+    public PriceResponse getVariant(@PathVariable Long productId, @PathVariable String variantKey) {
+        return priceService.getVariant(productId, variantKey);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PriceResponse create(@Valid @RequestBody PriceRequest request) {
@@ -38,9 +43,20 @@ public class PriceController {
         return priceService.update(productId, request);
     }
 
+    @PutMapping("/{productId}/variants/{variantKey}")
+    public PriceResponse updateVariant(@PathVariable Long productId, @PathVariable String variantKey, @Valid @RequestBody PriceRequest request) {
+        return priceService.updateVariant(productId, variantKey, request);
+    }
+
     @DeleteMapping("/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long productId) {
         priceService.delete(productId);
+    }
+
+    @DeleteMapping("/{productId}/variants/{variantKey}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteVariant(@PathVariable Long productId, @PathVariable String variantKey) {
+        priceService.deleteVariant(productId, variantKey);
     }
 }

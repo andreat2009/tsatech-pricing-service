@@ -1,6 +1,8 @@
 package com.newproject.pricing.controller;
 
 import com.newproject.pricing.dto.PriceRequest;
+import com.newproject.pricing.dto.PriceResolutionRequest;
+import com.newproject.pricing.dto.PriceResolutionResponse;
 import com.newproject.pricing.dto.PriceResponse;
 import com.newproject.pricing.service.PriceService;
 import jakarta.validation.Valid;
@@ -32,10 +34,20 @@ public class PriceController {
         return priceService.getVariant(productId, variantKey);
     }
 
+    @GetMapping("/rules/{id}")
+    public PriceResponse getRule(@PathVariable Long id) {
+        return priceService.getRule(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PriceResponse create(@Valid @RequestBody PriceRequest request) {
         return priceService.create(request);
+    }
+
+    @PostMapping("/resolve")
+    public PriceResolutionResponse resolve(@RequestBody PriceResolutionRequest request) {
+        return priceService.resolve(request);
     }
 
     @PutMapping("/{productId}")
@@ -48,6 +60,11 @@ public class PriceController {
         return priceService.updateVariant(productId, variantKey, request);
     }
 
+    @PutMapping("/rules/{id}")
+    public PriceResponse updateRule(@PathVariable Long id, @Valid @RequestBody PriceRequest request) {
+        return priceService.updateRule(id, request);
+    }
+
     @DeleteMapping("/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long productId) {
@@ -58,5 +75,11 @@ public class PriceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteVariant(@PathVariable Long productId, @PathVariable String variantKey) {
         priceService.deleteVariant(productId, variantKey);
+    }
+
+    @DeleteMapping("/rules/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRule(@PathVariable Long id) {
+        priceService.deleteRule(id);
     }
 }

@@ -26,6 +26,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET, "/actuator/health", "/actuator/info").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/pricing/quote").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/pricing/resolve").permitAll()
                 .requestMatchers("/api/pricing/**").authenticated()
                 .anyRequest().authenticated()
             )
